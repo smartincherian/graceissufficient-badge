@@ -4,11 +4,15 @@ The **"Digital partner: graceissufficient.net"** footer credit as one shared
 React component. Every project installs it from this repo, so the logo, link
 and wording are kept in one place.
 
-```
-Digital partner:  ┌────────────────────────┐
-                  │ graceissufficient.net  │  ← logo on a white chip, links to the site
-                  └────────────────────────┘
-```
+**On a dark footer** (the Catholicans background, `#16122b`):
+
+![The badge on a dark background](docs/badge-dark.png)
+
+**On a light footer** (`#f3f4f6`):
+
+![The badge on a light grey background](docs/badge-light.png)
+
+The logo sits on a white chip and links to https://graceissufficient.net.
 
 ## Contents
 
@@ -35,6 +39,7 @@ Digital partner:  ┌───────────────────�
 | `graceissufficient.webp` | The wordmark logo, 420 × 56 px, about 10 KB                    |
 | `package.json`           | Name, version, and `react` as a peer dependency                |
 | `README.md`              | This file                                                      |
+| `docs/`                  | README screenshots (in the repo only, not installed)           |
 
 The component renders this HTML:
 
@@ -195,6 +200,8 @@ fixed styles.
   example `#f3f4f6`) so the chip stays visible.
 - **Spacing:** Change the gap between the text and the chip with
   `style={{ gap: '0.75rem' }}`.
+- **Screenshots:** If the look changes, retake `docs/badge-dark.png` and
+  `docs/badge-light.png` (720 × 120 px, 2× scale).
 - **Logo size:** The logo is 14 px tall, which suits 12–14 px footer text. To
   change it, edit `height` in `index.jsx` and release a new version.
 
