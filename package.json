@@ -1,0 +1,9 @@
+{
+  "name": "graceissufficient-badge",
+  "version": "1.0.0",
+  "description": "\"Digital partner: graceissufficient.net\" footer credit",
+  "type": "module",
+  "main": "index.jsx",
+  "files": ["index.jsx", "graceissufficient.webp"],
+  "peerDependencies": { "react": ">=18" }
+}
