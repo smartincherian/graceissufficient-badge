@@ -71,13 +71,12 @@ The component renders this HTML:
 - **A bundler that compiles `.jsx` and imports `.webp` files from packages.**
   Vite does this with no setup. Next.js needs
   [one config line](#nextjs).
-- **Access to this private repo.** It must be readable by whoever (or whatever)
-  runs `npm install`. See [Private repo access](#private-repo-access).
+- **GitHub access** for `npm install`. The repo is public, so no token is needed.
 
 ## Quick start
 
 ```bash
-npm install github:smartincherian/graceissufficient-badge#v1.0.0
+npm install github:smartincherian/graceissufficient-badge#v1.1.0
 ```
 
 ```jsx
@@ -95,38 +94,24 @@ import PartnerBadge from 'graceissufficient-badge';
 Run this in the project folder:
 
 ```bash
-npm install github:smartincherian/graceissufficient-badge#v1.0.0
+npm install github:smartincherian/graceissufficient-badge#v1.1.0
 ```
 
 This adds the following to `package.json`:
 
 ```json
-"graceissufficient-badge": "github:smartincherian/graceissufficient-badge#v1.0.0"
+"graceissufficient-badge": "github:smartincherian/graceissufficient-badge#v1.1.0"
 ```
 
-- **Always pin a tag** (`#v1.0.0`). Without a tag, npm records whatever commit
+- **Always pin a tag** (`#v1.1.0`). Without a tag, npm records whatever commit
   was latest at install time, so a later change to `main` could reach a
   project unnoticed.
 - **Available tags:** see https://github.com/smartincherian/graceissufficient-badge/tags
 
-### Private repo access
+### Repo access
 
-npm fetches the repo with Git, so it needs GitHub access:
-
-- **Your own computer:** This already works if `gh auth status` shows you're
-  logged in, or if `git clone https://github.com/smartincherian/graceissufficient-badge`
-  works without asking for a password.
-- **Another computer:** Run `gh auth login` once, then `gh auth setup-git`.
-- **CI or hosted builds** (GitHub Actions, Vercel, Netlify, Cloud Build):
-  1. Create a fine-grained personal access token with **read-only Contents**
-     access to this repo.
-  2. Add it to the build as a secret, for example `GH_TOKEN`.
-  3. Before `npm install`, run:
-     ```bash
-     git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
-     ```
-- **Not needed for `firebase deploy`:** It uploads the `dist/` folder that was
-  built on your computer, so the build server never fetches this repo.
+The repo is public, so `npm install` works on any computer and on hosted
+builds (Vercel, Netlify, GitHub Actions) with no token.
 
 ### From a local folder (offline or testing)
 
@@ -220,11 +205,8 @@ export default nextConfig;
 The component uses no hooks or browser APIs, so it works in both Server and
 Client Components.
 
-> **Not yet tested with Next.js.** Next.js turns an image import into an
-> object (`{ src, width, height }`), not a URL string, so in v1.0.0 the logo
-> would render as `src="[object Object]"`. Before you use the badge in a
-> Next.js project, release a version where `index.jsx` uses
-> `typeof wordmark === 'string' ? wordmark : wordmark.src`.
+Next.js turns an image import into an object (`{ src, width, height }`), not
+a URL string. From v1.1.0 the component handles both, so use v1.1.0 or newer.
 
 ### Plain HTML, WordPress, or static sites (no React)
 
@@ -283,9 +265,9 @@ install the new tag.
 | Problem | Cause and fix |
 | ------- | ------------- |
 | Build fails: `failed to resolve import "react/jsx-runtime"` | The package was installed from a local folder as a symlink. Add `install-links=true` to the project's `.npmrc` and reinstall, or use the GitHub install. |
-| `npm install` fails: `Permission denied`, `Repository not found` or `could not read Username` | No access to the private repo. See [Private repo access](#private-repo-access). |
+| `npm install` fails: `Permission denied`, `Repository not found` or `could not read Username` | Git can't reach GitHub. Check the network, then try again ([Repo access](#repo-access)). |
 | Next.js: `Unexpected token '<'` or `Module parse failed` | Add the package to `transpilePackages` ([Next.js](#nextjs)). |
-| Next.js: logo is broken (`src="[object Object]"`) | Known v1.0.0 limitation, see [Next.js](#nextjs). |
+| Next.js: logo is broken (`src="[object Object]"`) | The project uses v1.0.0. Install v1.1.0 or newer ([Next.js](#nextjs)). |
 | The badge text didn't change after updating the package | The project passes its own `label`. Change it in the project, or remove the prop to use the package default. |
 | The logo chip is invisible | The footer background is white. Give it a light grey or dark background. |
 | A change pushed to the repo doesn't appear in a project | The project is pinned to an older tag. Release a new tag and install it ([Updating](#updating-a-project-to-a-new-version)). |
@@ -295,10 +277,15 @@ install the new tag.
 | Project       | Where                            | Version  | Label                              |
 | ------------- | -------------------------------- | -------- | ---------------------------------- |
 | `catholicans` | `src/components/Footer.jsx`      | `v1.0.0` | Own (`footer.madeBy` locale key)   |
+| `living-rhema-academy` | `src/components/AppVersion.tsx` | `v1.1.0` | Default |
 
 Add a row when you add the badge to another project.
 
 ## Changelog
+
+### v1.1.0 — 2026-11-21
+
+- Works in Next.js: the logo uses `wordmark.src` when the image import is an object.
 
 ### v1.0.0 — 2026-10-29
 

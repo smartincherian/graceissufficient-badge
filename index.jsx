@@ -1,5 +1,8 @@
 import wordmark from './graceissufficient.webp';
 
+// Vite gives a URL string; Next.js gives an object { src, width, height }.
+const logoSrc = typeof wordmark === 'string' ? wordmark : wordmark.src;
+
 // "Digital partner: [graceissufficient.net]" credit for footers.
 // Inline styles so it works in any project, with or without Tailwind.
 export default function PartnerBadge({ label = 'Digital partner:', className, style }) {
@@ -16,7 +19,7 @@ export default function PartnerBadge({ label = 'Digital partner:', className, st
         rel="noopener noreferrer"
         style={{ display: 'inline-flex', background: '#fff', borderRadius: '0.375rem', padding: '0.375rem 0.5rem' }}
       >
-        <img src={wordmark} alt="graceissufficient.net" width="420" height="56" style={{ height: '14px', width: 'auto' }} />
+        <img src={logoSrc} alt="graceissufficient.net" width="420" height="56" style={{ height: '14px', width: 'auto' }} />
       </a>
     </span>
   );
